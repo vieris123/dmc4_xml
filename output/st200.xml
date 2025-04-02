@@ -1,0 +1,229 @@
+<root>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md00" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x5a0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md00" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md01" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x5b0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md01" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x5c0" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x5d0" name="mLoop">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md02" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x5e0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md02" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md03" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x5f0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md03" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md11" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x600" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md11" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x610" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x620" name="mLoop">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md12" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x630" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md12" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md13" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x640" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md13" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x650" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x660" name="mLoop">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md14" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x670" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md14" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x680" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x690" name="mLoop">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md20" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x6a0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md20" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md21" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x6b0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md21" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x6c0" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md90" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x6d0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md90-denki" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x6e0" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md93" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x6f0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md93" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md94" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x700" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md94" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-md95" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x710" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-md95" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-ml00" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x720" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-ml00" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-sl00" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x730" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-sl00" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x740" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200_snd" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x750" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200_snd" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x760" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200-f00" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x770" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200-f00" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x780" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200_efc00" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x790" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200_efc00" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x7a0" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200_efc04" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x7b0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200_efc04" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x7c0" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x46a7503e" org_data_ofs="0x0" name="st200_efc05" dti="uScheduler">
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x7d0" name="mpScheduler">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\sdl\st200_efc05" ref_dti="rScheduler" />
+			</data>
+		</resource_track>
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x7e0" name="mPause">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</bool_track>
+	</classref_track>
+</root>

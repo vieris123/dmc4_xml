@@ -1,0 +1,1 @@
+dmc4_file_conv.exe -o xml %1

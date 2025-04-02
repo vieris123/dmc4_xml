@@ -1,0 +1,565 @@
+<root>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x239af7fe" org_data_ofs="0x0" name="st200-m90-yureden1" dti="uDevil4Model">
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0x4e0" name="mTransMode">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</int_track>
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x4f0" name="mpModel">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\stage\st200-m90" ref_dti="rModel" />
+			</data>
+		</resource_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x500" name="mPos">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>-1225.0</x>
+					<y>3600.0</y>
+					<z>2375.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x550" name="mAngle">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>-0.1387539952993393</x>
+					<y>1.570796012878418</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="1" marker_type="3">
+					<x>0.0</x>
+					<y>-0.1387539952993393</y>
+					<z>1.570796012878418</z>
+				</item>
+				<item timermarker="30" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>-0.13020199537277222</z>
+				</item>
+				<item timermarker="60" marker_type="3">
+					<x>1.570796012878418</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="120" marker_type="5">
+					<x>-0.10070499777793884</x>
+					<y>1.570796012878418</y>
+					<z>0.0009130000253207982</z>
+				</item>
+				<item timermarker="180" marker_type="5">
+					<x>0.0</x>
+					<y>0.002739999908953905</y>
+					<z>1.570796012878418</z>
+				</item>
+				<item timermarker="210" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.09599299728870392</z>
+				</item>
+				<item timermarker="240" marker_type="5">
+					<x>1.570796012878418</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="270" marker_type="5">
+					<x>0.1281069964170456</x>
+					<y>1.570796012878418</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="300" marker_type="5">
+					<x>0.0</x>
+					<y>0.13962599635124207</y>
+					<z>1.570796012878418</z>
+				</item>
+				<item timermarker="360" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.12950299680233002</z>
+				</item>
+				<item timermarker="420" marker_type="5">
+					<x>1.570796012878418</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="450" marker_type="5">
+					<x>0.09948399662971497</x>
+					<y>1.570796012878418</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="480" marker_type="5">
+					<x>0.0</x>
+					<y>-0.0</y>
+					<z>1.570796012878418</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x640" name="mScale">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>1.0</x>
+					<y>1.0</y>
+					<z>1.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_QUATERNION" org_dti_ofs="0x0" org_data_ofs="0x660" name="mQuat">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+					<w>0.0</w>
+				</item>
+			</data>
+		</vector_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0x680" name="mOrder">
+			<data>
+				<item timermarker="0" marker_type="0" value="4" />
+			</data>
+		</int_track>
+		<int_track prop_type="TYPE_S32" org_dti_ofs="0x0" org_data_ofs="0x690" name="mParentNo">
+			<data>
+				<item timermarker="0" marker_type="0" value="-1" />
+			</data>
+		</int_track>
+		<ref_track prop_type="TYPE_CLASSREF" org_dti_ofs="0x0" org_data_ofs="0x6a0" name="mpParent">
+			<data>
+				<item timermarker="0" marker_type="0" />
+			</data>
+		</ref_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0x6b0" name="mCameraTransparencyType">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</int_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x239af7fe" org_data_ofs="0x0" name="st200-m91-yureden1s" dti="uDevil4Model">
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0x6c0" name="mTransMode">
+			<data>
+				<item timermarker="0" marker_type="0" value="0" />
+			</data>
+		</int_track>
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x6d0" name="mpModel">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\stage\st200-m91" ref_dti="rModel" />
+			</data>
+		</resource_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x6e0" name="mPos">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>-1225.0</x>
+					<y>5000.0</y>
+					<z>2250.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x700" name="mScale">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>1.5</x>
+					<y>1.5</y>
+					<z>1.5</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x750" name="mAngle">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>-0.1387539952993393</x>
+					<y>1.570796012878418</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="1" marker_type="3">
+					<x>0.0</x>
+					<y>-0.13962599635124207</y>
+					<z>1.570796012878418</z>
+				</item>
+				<item timermarker="30" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>-0.13020199537277222</z>
+				</item>
+				<item timermarker="60" marker_type="3">
+					<x>1.570796012878418</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="120" marker_type="5">
+					<x>-0.10070499777793884</x>
+					<y>1.570796012878418</y>
+					<z>0.0009130000253207982</z>
+				</item>
+				<item timermarker="180" marker_type="5">
+					<x>0.0</x>
+					<y>0.002739999908953905</y>
+					<z>1.570796012878418</z>
+				</item>
+				<item timermarker="210" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.09599299728870392</z>
+				</item>
+				<item timermarker="240" marker_type="5">
+					<x>1.570796012878418</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="270" marker_type="5">
+					<x>0.1281069964170456</x>
+					<y>1.570796012878418</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="300" marker_type="5">
+					<x>0.0</x>
+					<y>0.13962599635124207</y>
+					<z>1.570796012878418</z>
+				</item>
+				<item timermarker="360" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.12950299680233002</z>
+				</item>
+				<item timermarker="420" marker_type="5">
+					<x>1.570796012878418</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="450" marker_type="5">
+					<x>0.09948399662971497</x>
+					<y>1.570796012878418</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="480" marker_type="5">
+					<x>0.0</x>
+					<y>-0.0</y>
+					<z>1.570796012878418</z>
+				</item>
+			</data>
+		</vector_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0x840" name="mCameraTransparencyType">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</int_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x74ad46a8" org_data_ofs="0x0" name="effect_1" dti="uDevil4Effect">
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0x850" name="SchedulerMode">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</bool_track>
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x860" name="mpEffectList">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="effect\efl\scr\es200_00v0" ref_dti="rEffectList" />
+			</data>
+		</resource_track>
+		<ref_track prop_type="TYPE_CLASSREF" org_dti_ofs="0x0" org_data_ofs="0x870" name="mpParent">
+			<data>
+				<item timermarker="0" marker_type="0" />
+			</data>
+		</ref_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x880" name="mOfs">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>0.0</x>
+					<y>-2000.0</y>
+					<z>0.0</z>
+				</item>
+			</data>
+		</vector_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x239af7fe" org_data_ofs="0x0" name="st200-m91-yureden0s" dti="uDevil4Model">
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0x8a0" name="mTransMode">
+			<data>
+				<item timermarker="0" marker_type="0" value="8" />
+			</data>
+		</int_track>
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0x8b0" name="mpModel">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\stage\st200-m91" ref_dti="rModel" />
+			</data>
+		</resource_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x8c0" name="mPos">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>1500.0</x>
+					<y>2560.0</y>
+					<z>450.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0x910" name="mAngle">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>-0.1387539952993393</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="1" marker_type="3">
+					<x>0.0</x>
+					<y>-0.1387539952993393</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="30" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>-0.13020199537277222</z>
+				</item>
+				<item timermarker="60" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="120" marker_type="5">
+					<x>-0.10070499777793884</x>
+					<y>0.0</y>
+					<z>0.0009130000253207982</z>
+				</item>
+				<item timermarker="180" marker_type="5">
+					<x>0.0</x>
+					<y>0.002739999908953905</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="210" marker_type="5">
+					<x>-0.0</x>
+					<y>0.0</y>
+					<z>0.09599299728870392</z>
+				</item>
+				<item timermarker="240" marker_type="5">
+					<x>0.0</x>
+					<y>-0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="270" marker_type="5">
+					<x>0.1281069964170456</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="300" marker_type="5">
+					<x>0.0</x>
+					<y>0.13962599635124207</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="360" marker_type="5">
+					<x>-0.0</x>
+					<y>0.0</y>
+					<z>0.12950299680233002</z>
+				</item>
+				<item timermarker="420" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="450" marker_type="5">
+					<x>0.09948399662971497</x>
+					<y>-0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="480" marker_type="5">
+					<x>0.0</x>
+					<y>-0.0</y>
+					<z>0.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0xa00" name="mScale">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>1.0</x>
+					<y>1.0</y>
+					<z>1.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_QUATERNION" org_dti_ofs="0x0" org_data_ofs="0xa20" name="mQuat">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+					<w>0.0</w>
+				</item>
+			</data>
+		</vector_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0xa40" name="mOrder">
+			<data>
+				<item timermarker="0" marker_type="0" value="4" />
+			</data>
+		</int_track>
+		<int_track prop_type="TYPE_S32" org_dti_ofs="0x0" org_data_ofs="0xa50" name="mParentNo">
+			<data>
+				<item timermarker="0" marker_type="0" value="-1" />
+			</data>
+		</int_track>
+		<ref_track prop_type="TYPE_CLASSREF" org_dti_ofs="0x0" org_data_ofs="0xa60" name="mpParent">
+			<data>
+				<item timermarker="0" marker_type="0" />
+			</data>
+		</ref_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0xa70" name="mCameraTransparencyType">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</int_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x239af7fe" org_data_ofs="0x0" name="st200-m90-yureden0" dti="uDevil4Model">
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0xa80" name="mTransMode">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</int_track>
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0xa90" name="mpModel">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="scr\st200\stage\st200-m90" ref_dti="rModel" />
+			</data>
+		</resource_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0xaa0" name="mPos">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>1500.0</x>
+					<y>2560.0</y>
+					<z>450.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0xaf0" name="mAngle">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>-0.1387539952993393</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="1" marker_type="3">
+					<x>0.0</x>
+					<y>-0.1387539952993393</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="30" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>-0.13020199537277222</z>
+				</item>
+				<item timermarker="60" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="120" marker_type="5">
+					<x>-0.10070499777793884</x>
+					<y>0.0</y>
+					<z>0.0009130000253207982</z>
+				</item>
+				<item timermarker="180" marker_type="5">
+					<x>0.0</x>
+					<y>0.002739999908953905</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="210" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.09599299728870392</z>
+				</item>
+				<item timermarker="240" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="270" marker_type="5">
+					<x>0.1281069964170456</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="300" marker_type="5">
+					<x>0.0</x>
+					<y>0.13962599635124207</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="360" marker_type="5">
+					<x>-0.0</x>
+					<y>0.0</y>
+					<z>0.12950299680233002</z>
+				</item>
+				<item timermarker="420" marker_type="5">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="450" marker_type="5">
+					<x>0.09948399662971497</x>
+					<y>-0.0</y>
+					<z>0.0</z>
+				</item>
+				<item timermarker="480" marker_type="5">
+					<x>0.0</x>
+					<y>-0.0</y>
+					<z>0.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0xbe0" name="mScale">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>1.0</x>
+					<y>1.0</y>
+					<z>1.0</z>
+				</item>
+			</data>
+		</vector_track>
+		<vector_track prop_type="TYPE_QUATERNION" org_dti_ofs="0x0" org_data_ofs="0xc00" name="mQuat">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>0.0</x>
+					<y>0.0</y>
+					<z>0.0</z>
+					<w>0.0</w>
+				</item>
+			</data>
+		</vector_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0xc20" name="mOrder">
+			<data>
+				<item timermarker="0" marker_type="0" value="4" />
+			</data>
+		</int_track>
+		<int_track prop_type="TYPE_S32" org_dti_ofs="0x0" org_data_ofs="0xc30" name="mParentNo">
+			<data>
+				<item timermarker="0" marker_type="0" value="-1" />
+			</data>
+		</int_track>
+		<ref_track prop_type="TYPE_CLASSREF" org_dti_ofs="0x0" org_data_ofs="0xc40" name="mpParent">
+			<data>
+				<item timermarker="0" marker_type="0" />
+			</data>
+		</ref_track>
+		<int_track prop_type="TYPE_U32" org_dti_ofs="0x0" org_data_ofs="0xc50" name="mCameraTransparencyType">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</int_track>
+	</classref_track>
+	<classref_track prop_type="TYPE_UNDEFINED" org_dti_ofs="0x74ad46a8" org_data_ofs="0x0" name="effect_0" dti="uDevil4Effect">
+		<bool_track prop_type="TYPE_BOOL" org_dti_ofs="0x0" org_data_ofs="0xc60" name="SchedulerMode">
+			<data>
+				<item timermarker="0" marker_type="0" value="1" />
+			</data>
+		</bool_track>
+		<resource_track prop_type="TYPE_END" org_dti_ofs="0x0" org_data_ofs="0xc70" name="mpEffectList">
+			<data>
+				<item timermarker="0" marker_type="0" ref_path="effect\efl\scr\es200_00v0" ref_dti="rEffectList" />
+			</data>
+		</resource_track>
+		<ref_track prop_type="TYPE_CLASSREF" org_dti_ofs="0x0" org_data_ofs="0xc80" name="mpParent">
+			<data>
+				<item timermarker="0" marker_type="0" />
+			</data>
+		</ref_track>
+		<vector_track prop_type="TYPE_VECTOR3" org_dti_ofs="0x0" org_data_ofs="0xc90" name="mOfs">
+			<data>
+				<item timermarker="0" marker_type="3">
+					<x>0.0</x>
+					<y>-2000.0</y>
+					<z>0.0</z>
+				</item>
+			</data>
+		</vector_track>
+	</classref_track>
+</root>
