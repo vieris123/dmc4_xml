@@ -20,7 +20,7 @@ instances:
 types:
   xfs_header:
     seq:
-    - {id: magic, type: u4}
+    - {id: magic, contents: [0x58, 0x46, 0x53, 0x00]}
     - {id: major_ver, type: u2}
     - {id: minor_ver, type: u2}
     - {id: object_num, type: u4}

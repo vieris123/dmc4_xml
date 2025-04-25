@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Python File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main.py",
+            "args": ["-o", "xml", "E:\\DMC mod stuffs\\dmc4_xml\\tests\\st705.cam"]
+        }
+    ]
+}

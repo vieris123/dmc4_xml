@@ -5,13 +5,14 @@ import argparse
 import xml.etree.ElementTree as ET
 
 import structs.sdl as sdl
-from xml_parser import from_sdl, to_sdl
+import structs.xfs as xfs
+from xml_parser import from_sdl, to_sdl, from_xfs, to_xfs
 from kaitaistruct import KaitaiStream
 import glob
 
 def serialize(fp):
     with open(fp, 'rb') as f:
-        file_name = os.path.basename(fp).split('.')[0]
+        file_name, extension = os.path.basename(fp).split('.')
         data = f.read()
         magic = data[:3].decode('utf-8')
 
@@ -20,6 +21,13 @@ def serialize(fp):
             sdl_struct = sdl.Sdl(KaitaiStream(sdl_bytes))
             sdl_struct._read()
             xml = from_sdl(sdl_struct)
+            ET.indent(xml, space="\t", level=0)
+            xml.write(f'{file_name}.xml')
+        if magic == 'XFS':
+            xfs_bytes = io.BytesIO(data)
+            xfs_struct = xfs.Xfs(KaitaiStream(xfs_bytes))
+            xfs_struct._read()
+            xml = from_xfs(xfs_struct, extension)
             ET.indent(xml, space="\t", level=0)
             xml.write(f'{file_name}.xml')
 
@@ -32,6 +40,11 @@ def deserialize(fp, output):
         if output == 'sdl':
             out_data = to_sdl(tree)
             with open(f'{file_name}.sdl', 'wb') as wf:
+                wf.write(out_data)
+        
+        if output == 'xfs':
+            out_data = to_xfs(tree)
+            with open(f'{file_name}.{tree.attrib['extension']}', 'wb') as wf:
                 wf.write(out_data)
 
 def main():

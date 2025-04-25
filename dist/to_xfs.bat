@@ -1,0 +1,1 @@
+dmc4_file_conv.exe -o xfs %1

@@ -18,7 +18,7 @@ types:
       - {id: magic, contents: [0x53, 0x44, 0x4c, 0x00]}
       - {id: version, type: u2}
       - {id: num_tracks, type: u2}
-      - {id: ukn, type: u4}
+      - {id: frames, type: u4}
       - {id: dti_table_offset, type: u4}
       - {id: name_offset, type: u4}
   

@@ -1,4 +1,7 @@
 from typing import Type
+from struct import pack, unpack
+from functools import partial
+from kaitaistruct import KaitaiStream
 
 class XmlPropSerializer:
     def __init__(self):
@@ -14,13 +17,13 @@ class Float2(XmlPropSerializer):
     y: float
 
 
-class Float3(Float2):
+class Float3(XmlPropSerializer):
     x: float
     y: float
     z: float
 
 
-class Float4(Float3):
+class Float4(XmlPropSerializer):
     x: float
     y: float
     z: float
@@ -157,4 +160,60 @@ type_to_class_name = {
     0x31: "Cylinder",
     0x36: "Range",
     0x37: "RangeF"
+}
+
+scalar_type_map = {
+    0x3: KaitaiStream.read_u1,
+    0x4: KaitaiStream.read_u1,
+    0x5: KaitaiStream.read_u2le,
+    0x6: KaitaiStream.read_u4le,
+    0x7: KaitaiStream.read_u8le,
+    0x8: KaitaiStream.read_s1,
+    0x9: KaitaiStream.read_s2le,
+    0xA: KaitaiStream.read_s4le,
+    0xB: KaitaiStream.read_s8le,
+    0xC: KaitaiStream.read_f4le,
+    0xD: KaitaiStream.read_f8le
+}
+
+scalar_write_map = {
+    0x3: partial(pack, 'B'),
+    0x4: partial(pack, 'B'),
+    0x5: partial(pack, 'H'),
+    0x6: partial(pack, 'I'),
+    0x7: partial(pack, 'Q'),
+    0x8: partial(pack, 'b'),
+    0x9: partial(pack, 'h'),
+    0xA: partial(pack, 'i'),
+    0xB: partial(pack, 'q'),
+    0xC: partial(pack, 'f'),
+    0xD: partial(pack, 'd')
+}
+
+# scalar_write_map = {
+#     0x3: KaitaiStream.write_u1,
+#     0x4: KaitaiStream.write_u1,
+#     0x5: KaitaiStream.write_u2le,
+#     0x6: KaitaiStream.write_u4le,
+#     0x7: KaitaiStream.write_u8le,
+#     0x8: KaitaiStream.write_s1,
+#     0x9: KaitaiStream.write_s2le,
+#     0xA: KaitaiStream.write_s4le,
+#     0xB: KaitaiStream.write_s8le,
+#     0xC: KaitaiStream.write_f4le,
+#     0xD: KaitaiStream.write_f8le
+# }
+
+scalar_bytes_num = {
+    0x3: 1,
+    0x4: 1,
+    0x5: 2,
+    0x6: 4,
+    0x7: 8,
+    0x8: 1,
+    0x9: 2,
+    0xA: 4,
+    0xB: 8,
+    0xC: 4,
+    0xD: 8
 }

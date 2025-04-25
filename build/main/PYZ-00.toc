@@ -306,6 +306,7 @@
    'PYMODULE'),
   ('structs', 'E:\\DMC mod stuffs\\dmc4_xml\\structs\\__init__.py', 'PYMODULE'),
   ('structs.sdl', 'E:\\DMC mod stuffs\\dmc4_xml\\structs\\sdl.py', 'PYMODULE'),
+  ('structs.xfs', 'E:\\DMC mod stuffs\\dmc4_xml\\structs\\xfs.py', 'PYMODULE'),
   ('subprocess',
    'C:\\Users\\fapro\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\subprocess.py',
    'PYMODULE'),

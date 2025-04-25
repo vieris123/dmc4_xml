@@ -1035,7 +1035,7 @@ class Sdl(ReadWriteKaitaiStruct):
                 raise kaitaistruct.ValidationNotEqualError(b"\x53\x44\x4C\x00", self.magic, self._io, u"/types/base_header/seq/0")
             self.version = self._io.read_u2le()
             self.num_tracks = self._io.read_u2le()
-            self.ukn = self._io.read_u4le()
+            self.frames = self._io.read_u4le()
             self.dti_table_offset = self._io.read_u4le()
             self.name_offset = self._io.read_u4le()
 
@@ -1049,7 +1049,7 @@ class Sdl(ReadWriteKaitaiStruct):
             self._io.write_bytes(self.magic)
             self._io.write_u2le(self.version)
             self._io.write_u2le(self.num_tracks)
-            self._io.write_u4le(self.ukn)
+            self._io.write_u4le(self.frames)
             self._io.write_u4le(self.dti_table_offset)
             self._io.write_u4le(self.name_offset)
 
