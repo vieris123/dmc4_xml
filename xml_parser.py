@@ -7,7 +7,7 @@ from ctypes import Structure, Union, c_uint32
 from collections import defaultdict
 from classes import DTI_HASHES, RV_DTI_HASHES, DTI_FILE_HASHES, RV_DTI_FILE_HASHES
 from classes import MtPropertyType, RV_MtPropertyType
-from structs import sdl, xfs
+from structs import sdl, xfs, pla
 import mt_types as mt
 from kaitaistruct import KaitaiStruct, KaitaiStream, BytesIO
 
@@ -38,6 +38,32 @@ RV_SDL_TRACK_ENUM = {
     'ref_track': 10,
     'resource_track': 11,  # 0xB in decimal
     'event_track': 13      # 0xD in decimal
+}
+
+PLA_TRACK_ENUM = {
+    1: 'root_track',
+    3: 'group_track', #unit track ?
+    4: 'unit_track', #another root ?
+    5: 'object_track',
+    6: 'bool_track',
+    7: 'int_track',
+    8: 'float_track',
+    9: 'vector_track',
+    10: 'ref_track',
+    11: 'resource_track',
+}
+
+RV_PLA_TRACK_ENUM = {
+    'root_track': 1,
+    'group_track': 3,  # unit track ?
+    'unit_track': 4,
+    'object_track': 5,
+    'bool_track': 6,
+    'int_track': 7,
+    'float_track': 8,
+    'vector_track': 9,
+    'ref_track': 10,
+    'resource_track': 11,  # 0xB in decimal
 }
 
 SYMBOL_ORDER = {
@@ -303,8 +329,56 @@ def to_sdl(root):
     #     ref_track.prop_type = 2/
     return stream.to_byte_array()
 
-def from_pla(pla):
-    pass
+def from_pla(pla_file):
+    root = ET.Element('root')
+    root.attrib['frames'] = str(pla_file.header.frames)
+    sorted_tracks = pla_file.tracks.copy()
+    sorted_tracks.sort(key=lambda x: x.parent)
+    #parents = defaultdict(list)
+    elements = []
+
+    for i, track in enumerate(pla_file.tracks[1:]):
+        #parents[track.parent].append(i)
+        track_type = PLA_TRACK_ENUM[track.type]
+        e = ET.Element(PLA_TRACK_ENUM[track.type],attrib={})
+        e.attrib['prop_type'] = RV_MtPropertyType[track.prop_type]
+        e.attrib['org_dti_ofs'] = hex(track.dti_ref)
+        e.attrib['org_data_ofs'] = hex(track.data_ref)
+        e.attrib['name'] = track.name
+        if track.type == 2:
+            e.attrib['dti'] = RV_DTI_HASHES[track.dti_ref]
+
+        if track.type == 4:
+            e.attrib['move_line'] = f'{track.move_line}'
+
+        if track.num_frames > 0:
+            data = ET.SubElement(e, 'data')
+            for j in range(track.num_frames):
+                value = ET.SubElement(data, 'item', attrib={
+                    'timermarker':str(track.timing_frames[j].frame),
+                    'marker_type':str(track.timing_frames[j].type)
+                })
+                if track.type in [6, 7, 8]:
+                    value.attrib['value'] = str(track.data[j])
+                if track.type == 9:
+                    val = mt.type_to_class[track.prop_type]()
+                    val.read(track.data[j])
+                    for k in val.__annotations__:
+                        it = ET.SubElement(value, k, attrib={})
+                        it.text = str(getattr(val, k))
+                if track.type == 0xB:
+                    if track.data[j].ref_ofs:
+                        value.attrib['ref_path'] = track.data[j].ref_path
+                        value.attrib['ref_dti'] = RV_DTI_HASHES[track.data[j].ref_dti]
+
+        if track.type in [3, 4, 5]:
+            root.append(e)
+        else:
+            elements[track.parent - 1].append(e)
+        elements.append(e)
+
+    tree = ET.ElementTree(root)
+    return tree
 
 
 class XfsMeta(Structure):

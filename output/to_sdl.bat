@@ -1,1 +1,0 @@
-dmc4_file_conv.exe -o sdl %1
