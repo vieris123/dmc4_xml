@@ -19,7 +19,9 @@ from dmc4xml import sdl, pla, xmlconv  # noqa: E402
 
 def content(kind, data):
     if kind == "sdl":
-        return [(t.type, t.prop_type, t.parent, t.name, t.dti, t.keys) for t in sdl.read(data).tracks]
+        s = sdl.read(data)
+        return [(s.frames, s.flags, s.marker_track)] + [(t.type, t.prop_type, t.parent, t.name, t.dti, t.keys)
+                                                        for t in s.tracks]
     return [(t.type, t.prop_type, t.parent, t.move_line, t.name, t.dti, t.value) for t in pla.read(data).tracks]
 
 

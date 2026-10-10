@@ -2,7 +2,9 @@
 
 Layout (every DX9 file follows it, see the corpus test):
 
-- header 0x14: magic, u16 version, u16 track count, u32 frames, u32 dti_table_offset, u32 name area offset
+- header 0x14: magic, u16 version, u16 track count, u32 frames (bits 0-23; bit 24 = floor the frame before
+  evaluating), u32 marker track (index of a track whose keys are the cut frames, usually 0 = none), u32 name area
+  offset
 - tracks, 0x18 each: u8 type, u8 property type, u16 key count, u32 parent, u32 name offset, u32 dti, u32 timing
   offset, u32 data offset (offsets from the file start, names from the name area)
 - value area: per keyed track, in track order, the timing array (u32 per key: frame in bits 0-23, mode in 24-31) at
@@ -10,8 +12,13 @@ Layout (every DX9 file follows it, see the corpus test):
 - name area at the next 4-byte boundary: NUL-terminated track names and resource entries (u32 dti + path), each
   stored once; the file ends with the last string
 
-Track `parent` is the owning track's index, except for units (types 2 and 3), where it's the unit's move line.
-Object tracks (type 5) keep a sub-object number in their dti field.
+Track `parent` is the owning track's index, except for units (type 2: the sUnit move line the unit is created on) and
+system tracks (type 3: bound to a system singleton such as sCamera, parent unused). Object and value tracks use `dti`
+as the array index when their property is an array. Ref values and the header's marker track are track indices.
+
+Runtime (DX9 `rScheduler::keying` 0x90AF00, see Vibed/RE/sdl_scheduler_runtime.md): one frame = 1/60 s; key i's mode
+governs the segment i -> i+1: 0 step, 1 / 4 counter (value + elapsed frames), 2 step written only on the tick that
+reaches the key (one-shot), 3 linear, 5 uniform Catmull-Rom.
 """
 import struct
 
@@ -20,10 +27,13 @@ VERSION = 16
 HEADER = struct.Struct("<4sHHIII")
 TRACK = struct.Struct("<BBHIIIII")
 
-# track types
-ROOT, UNIT, GROUP, ROOT2, OBJECT = 1, 2, 3, 4, 5
-INT, VECTOR, FLOAT, BOOL, REF, RESOURCE, EVENT, CUSTOM = 6, 7, 8, 9, 10, 11, 13, 14
-CONTAINERS = (ROOT, UNIT, GROUP, ROOT2, OBJECT)
+# track types (4 is ignored by the game)
+ROOT, UNIT, SYSTEM, ROOT2, OBJECT = 1, 2, 3, 4, 5
+GROUP = SYSTEM      # older name
+INT, VECTOR, FLOAT, BOOL, REF, RESOURCE, STRING, EVENT, CUSTOM = 6, 7, 8, 9, 10, 11, 12, 13, 14
+CONTAINERS = (ROOT, UNIT, SYSTEM, ROOT2, OBJECT)
+VALUE_TYPES = (INT, VECTOR, FLOAT, BOOL, REF, RESOURCE, STRING, EVENT, CUSTOM)
+FLOOR_FRAME = 0x01000000    # frames word: floor the frame before evaluating
 
 # property types (MtPropertyType)
 P_CLASSREF, P_BOOL, P_U8, P_U16, P_U32, P_U64, P_S8, P_S16, P_S32, P_S64, P_F32 = 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
@@ -49,12 +59,12 @@ def value_size(track_type, prop_type):
         return struct.calcsize("<" + INT_FORMATS[prop_type])
     if track_type == CUSTOM:
         return CUSTOM_SIZE
-    return 4      # float, ref, resource, event
+    return 4      # float, ref, resource, string, event
 
 
 class Key:
     """frame (0..0xFFFFFF), mode (0..255) and a value: int, float, a tuple of 4 floats (vector), None or
-    (dti, path) (resource), bytes (custom)."""
+    (dti, path) (resource), None or str (string), bytes (custom). `ref_ofs` is a resource / string's source offset."""
     __slots__ = ("frame", "mode", "value", "ref_ofs")
 
     def __init__(self, frame, mode, value, ref_ofs=None):
@@ -82,9 +92,12 @@ class Track:
 
 
 class Sdl:
-    def __init__(self, tracks=None, frames=0, version=VERSION, dti_table_offset=0):
+    """`frames`: loop length (bits 0-23 of the header word); `flags`: its bits 24-31 (FLOOR_FRAME); `marker_track`:
+    index of the track whose key frames are cuts (0 = none)."""
+
+    def __init__(self, tracks=None, frames=0, version=VERSION, marker_track=0, flags=0):
         self.tracks = tracks if tracks is not None else []
-        self.frames, self.version, self.dti_table_offset = frames, version, dti_table_offset
+        self.frames, self.version, self.marker_track, self.flags = frames, version, marker_track, flags
 
 
 def _align(n, a):
@@ -105,10 +118,10 @@ def read(data):
     data = bytes(data)
     if len(data) < HEADER.size or data[:4] != MAGIC:
         raise SdlError(f"not an SDL file ({data[:4]!r})")
-    magic, version, count, frames, dti_table_offset, names = HEADER.unpack_from(data, 0)
+    magic, version, count, frames, marker_track, names = HEADER.unpack_from(data, 0)
     if version != VERSION:
         raise SdlError(f"SDL version {version} isn't supported (DX9 files are {VERSION})")
-    sdl = Sdl(frames=frames, version=version, dti_table_offset=dti_table_offset)
+    sdl = Sdl(frames=frames & 0xFFFFFF, version=version, marker_track=marker_track, flags=frames >> 24)
     for i in range(count):
         ttype, prop, nkeys, parent, name_ofs, dti, timing, values = TRACK.unpack_from(data, HEADER.size + TRACK.size * i)
         name, enc = _cstring(data, names + name_ofs)
@@ -136,6 +149,11 @@ def read(data):
                         value = (dti_ref, path)
                     else:
                         value = None
+                    track.keys.append(Key(raw_t & 0xFFFFFF, raw_t >> 24, value, ofs or None))
+                    continue
+                elif ttype == STRING:
+                    ofs = struct.unpack_from("<I", data, at)[0]
+                    value = _cstring(data, names + ofs)[0] if ofs else None
                     track.keys.append(Key(raw_t & 0xFFFFFF, raw_t >> 24, value, ofs or None))
                     continue
                 else:     # ref, event: u32
@@ -225,7 +243,7 @@ def write(sdl):
     for i, t in enumerate(tracks):
         if t.type in CONTAINERS and t.keys:
             problems.append(f"track {i} ({t.name}): type {t.type} can't have keys")
-        if t.type not in CONTAINERS and t.type not in (INT, VECTOR, FLOAT, BOOL, REF, RESOURCE, EVENT, CUSTOM):
+        if t.type not in CONTAINERS and t.type not in VALUE_TYPES:
             problems.append(f"track {i} ({t.name}): unknown track type {t.type}")
         if t.type == INT and t.prop_type not in INT_FORMATS:
             problems.append(f"track {i} ({t.name}): property type {t.prop_type:#x} isn't an integer")
@@ -235,6 +253,10 @@ def write(sdl):
                 break
     if len(tracks) > 0xFFFF:
         problems.append(f"{len(tracks)} tracks (65,535 at most)")
+    if not 0 <= sdl.marker_track < max(len(tracks), 1):
+        problems.append(f"marker track {sdl.marker_track} isn't a track")
+    if not 0 <= sdl.frames <= 0xFFFFFF or not 0 <= sdl.flags <= 0xFF:
+        problems.append(f"frames {sdl.frames} / flags {sdl.flags} out of range")
     if problems:
         raise SdlError("\n".join(problems))
 
@@ -242,10 +264,11 @@ def write(sdl):
     name_keys, ref_keys = [], {}
     for t in tracks:
         name_keys.append(pool.want(t.name.encode(t.encoding) + b"\0", t.name_ofs))
-        if t.type == RESOURCE:
+        if t.type in (RESOURCE, STRING):
             for k in t.keys:
                 if k.value is not None:
-                    ref_keys[id(k)] = pool.want(_resource_entry(k.value), k.ref_ofs)
+                    entry = _resource_entry(k.value) if t.type == RESOURCE else k.value.encode("utf-8") + bytes(1)
+                    ref_keys[id(k)] = pool.want(entry, k.ref_ofs)
     names = pool.build()
 
     values = bytearray()
@@ -264,7 +287,7 @@ def write(sdl):
         at = _align(pos, 16)
         values += bytes(at - pos)
         for k in t.keys:
-            if t.type == RESOURCE:
+            if t.type in (RESOURCE, STRING):
                 if k.value is None:
                     values += struct.pack("<I", 0)
                 else:
@@ -275,7 +298,8 @@ def write(sdl):
     end = base + len(values)
     name_area = _align(end, 4)
 
-    out = bytearray(HEADER.pack(MAGIC, sdl.version, len(tracks), sdl.frames, sdl.dti_table_offset, name_area))
+    out = bytearray(HEADER.pack(MAGIC, sdl.version, len(tracks), sdl.frames | (sdl.flags << 24), sdl.marker_track,
+                                name_area))
     for t, key, (timing, at) in zip(tracks, name_keys, refs):
         out += TRACK.pack(t.type, t.prop_type, len(t.keys), t.parent, pool.offset(key), t.dti, timing, at)
     out += values

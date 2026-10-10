@@ -4,6 +4,7 @@
 # - vector tracks use 16 bytes per key whatever the property type (FLOAT2 / FLOAT3 / EASECURVE included)
 # - track types 3 (group, like 2), 10 (ref, u32), 13 (event, u32) and 14 (custom, 64 bytes) exist
 # - timing arrays start at the next 4-byte boundary, values at the next 16-byte one
+# - header +0x08 bits 24-31 are flags (bit 24: floor the frame), +0x0C is the marker (cut) track index, not a DTI table
     
 meta:
   endian: le

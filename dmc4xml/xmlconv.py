@@ -3,7 +3,10 @@ keeps it); the root track is implicit.
 
 Compatible with XML written by earlier versions of dmc4_xml: `org_dti_ofs` / `org_data_ofs` are ignored, missing
 attributes take their defaults. New attributes:
-- `move_line` on units (SDL classref / group tracks, PLA unit tracks)
+- `move_line` on units (SDL classref / system tracks, PLA unit tracks)
+- SDL root: `floor_frame="1"` (frames word bit 24), `marker_track` (index of the cut track; older XML called it
+  `dti_table_offset`)
+- `dti` accepts a class name, a hex / decimal hash, or any new class name (hashed with dti.dti_hash)
 - `index` on value tracks whose dti field holds an array index
 - `str_ofs` / `ref_ofs`: where the name / resource entry sat in the source file. Only used to write the strings back
   in the same order (byte-identical files); delete them freely, new strings are appended.
@@ -13,14 +16,16 @@ import xml.etree.ElementTree as ET
 
 from . import sdl as _sdl
 from . import pla as _pla
-from .classes import DTI_HASHES, RV_DTI_HASHES, MtPropertyType, RV_MtPropertyType
+from .classes import MtPropertyType, RV_MtPropertyType
+from .dti import dti_id as _dti_id, dti_name as _dti_name
 
-SDL_TAGS = {1: "root_track", 2: "classref_track", 3: "group_track", 4: "class_track", 5: "object_track",
+SDL_TAGS = {1: "root_track", 2: "classref_track", 3: "system_track", 4: "class_track", 5: "object_track",
             6: "int_track", 7: "vector_track", 8: "float_track", 9: "bool_track", 10: "ref_track",
-            11: "resource_track", 13: "event_track", 14: "custom_track"}
+            11: "resource_track", 12: "string_track", 13: "event_track", 14: "custom_track"}
 PLA_TAGS = {1: "root_track", 3: "group_track", 4: "unit_track", 5: "object_track", 6: "bool_track", 7: "int_track",
             8: "float_track", 9: "vector_track", 10: "ref_track", 11: "resource_track"}
 RV_SDL_TAGS = {v: k for k, v in SDL_TAGS.items()}
+RV_SDL_TAGS["group_track"] = 3          # name used by an earlier version of this module
 RV_PLA_TAGS = {v: k for k, v in PLA_TAGS.items()}
 
 # element names of a vector key's floats, by property type (same names as mt_types' classes); a vector key always
@@ -40,14 +45,6 @@ def _prop_name(p):
 
 def _prop_id(s):
     return MtPropertyType[s] if s in MtPropertyType else int(s, 0)
-
-
-def _dti_name(h):
-    return RV_DTI_HASHES.get(h, f"{h:#010x}")
-
-
-def _dti_id(s):
-    return DTI_HASHES[s] if s in DTI_HASHES else int(s, 0)
 
 
 
@@ -116,14 +113,18 @@ def _flatten(node, tags, out, parent):
 # ---- SDL ---------------------------------------------------------------------------------------------------------
 
 def _sdl_top(t):
-    return t.type in (_sdl.UNIT, _sdl.GROUP) or t.parent == 0
+    return t.type in (_sdl.UNIT, _sdl.SYSTEM) or t.parent == 0
 
 
 def sdl_to_xml(sdl):
     """Sdl -> ElementTree root element"""
     root = ET.Element("root", {"frames": str(sdl.frames)})
-    if sdl.dti_table_offset:
-        root.attrib["dti_table_offset"] = str(sdl.dti_table_offset)
+    if sdl.flags & _sdl.FLOOR_FRAME >> 24:
+        root.attrib["floor_frame"] = "1"
+    if sdl.flags & ~(_sdl.FLOOR_FRAME >> 24):
+        root.attrib["frame_flags"] = hex(sdl.flags & ~(_sdl.FLOOR_FRAME >> 24))
+    if sdl.marker_track:
+        root.attrib["marker_track"] = str(sdl.marker_track)
     if not sdl.tracks or sdl.tracks[0].type != _sdl.ROOT:
         raise XmlError("the first track isn't the root track")
     if sdl.tracks[0].name != "Root" or sdl.tracks[0].name_ofs:
@@ -137,7 +138,7 @@ def sdl_to_xml(sdl):
             a["str_ofs"] = hex(t.name_ofs)
         if t.encoding != "utf-8":
             a["encoding"] = t.encoding
-        if t.type in (_sdl.UNIT, _sdl.GROUP):
+        if t.type in (_sdl.UNIT, _sdl.SYSTEM):
             a["dti"] = _dti_name(t.dti)
             a["move_line"] = str(t.parent)
         elif t.type == _sdl.OBJECT:
@@ -151,6 +152,11 @@ def sdl_to_xml(sdl):
                 ia = {"timermarker": str(k.frame), "marker_type": str(k.mode)}
                 if t.type == _sdl.RESOURCE:
                     _resource_to(ia, k.value, k.ref_ofs)
+                elif t.type == _sdl.STRING:
+                    if k.value is not None:
+                        ia["value"] = k.value
+                        if k.ref_ofs is not None:
+                            ia["ref_ofs"] = hex(k.ref_ofs)
                 elif t.type == _sdl.CUSTOM:
                     ia["hex"] = bytes(k.value).hex()
                 elif t.type == _sdl.FLOAT:
@@ -171,8 +177,12 @@ def xml_to_sdl(root):
     """ElementTree root element (or an ElementTree) -> Sdl"""
     if hasattr(root, "getroot"):
         root = root.getroot()
-    out = _sdl.Sdl(frames=int(root.attrib.get("frames", "0")),
-                   dti_table_offset=int(root.attrib.get("dti_table_offset", "0")))
+    frames = int(root.attrib.get("frames", "0"), 0)
+    flags = (frames >> 24) | int(root.attrib.get("frame_flags", "0"), 0)
+    if root.attrib.get("floor_frame") == "1":
+        flags |= _sdl.FLOOR_FRAME >> 24
+    marker = root.attrib.get("marker_track", root.attrib.get("dti_table_offset", "0"))
+    out = _sdl.Sdl(frames=frames & 0xFFFFFF, flags=flags, marker_track=int(marker, 0))
     out.tracks.append(_sdl.Track(_sdl.ROOT, 0, 0, root.attrib.get("root_name", "Root"), name_ofs=0))
     flat = []
     _flatten(root, RV_SDL_TAGS, flat, 0)
@@ -182,7 +192,7 @@ def xml_to_sdl(root):
         t = _sdl.Track(ttype, _prop_id(a.get("prop_type", "TYPE_UNDEFINED")), parent, a.get("name", ""),
                        name_ofs=int(a["str_ofs"], 0) if "str_ofs" in a else None,
                        encoding=a.get("encoding", "utf-8"))
-        if ttype in (_sdl.UNIT, _sdl.GROUP):
+        if ttype in (_sdl.UNIT, _sdl.SYSTEM):
             t.dti = _dti_id(a["dti"]) if "dti" in a else 0
             t.parent = int(a.get("move_line", "0"))
         elif ttype == _sdl.ROOT2:
@@ -198,6 +208,9 @@ def xml_to_sdl(root):
                 hint = None
                 if ttype == _sdl.RESOURCE:
                     value, hint = _resource_from(ia)
+                elif ttype == _sdl.STRING:
+                    value = ia.get("value")
+                    hint = int(ia["ref_ofs"], 0) if "ref_ofs" in ia and value is not None else None
                 elif ttype == _sdl.VECTOR:
                     value = _vector_from(item, t.prop_type)
                 elif ttype == _sdl.CUSTOM:
