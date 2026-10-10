@@ -1,3 +1,6 @@
+# NOTE: the tool reads and writes XFS with dmc4xml/xfs.py (byte-exact on every DX9 file: keeps each property's
+# attr / getter / setter fields, the header minor version and the object meta bits); this struct is kept for
+# reference only. Names are padded to 4 bytes before the data.
 meta:
   id: xfs
   endian: le
