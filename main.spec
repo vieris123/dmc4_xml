@@ -4,6 +4,7 @@ from PyInstaller.utils.hooks import collect_submodules
 hiddenimports = []
 hiddenimports += collect_submodules('xml_parser')
 hiddenimports += collect_submodules('classes')
+hiddenimports += collect_submodules('dmc4xml')
 
 
 a = Analysis(

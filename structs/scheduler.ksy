@@ -1,3 +1,9 @@
+# NOTE: superseded by dmc4xml/sdl.py (byte-exact on every DX9 file); the tool no longer uses this struct.
+# Known differences from the real layout:
+# - int tracks store every key in a 4-byte slot (U8 / U16 included), bools 1 byte per key
+# - vector tracks use 16 bytes per key whatever the property type (FLOAT2 / FLOAT3 / EASECURVE included)
+# - track types 3 (group, like 2), 10 (ref, u32), 13 (event, u32) and 14 (custom, 64 bytes) exist
+# - timing arrays start at the next 4-byte boundary, values at the next 16-byte one
     
 meta:
   endian: le

@@ -4,47 +4,48 @@ import io
 import argparse
 import xml.etree.ElementTree as ET
 
-import structs.sdl as sdl
 import structs.xfs as xfs
-from xml_parser import from_sdl, to_sdl, from_xfs, to_xfs
+from xml_parser import from_xfs, to_xfs
+from dmc4xml import xmlconv
 from kaitaistruct import KaitaiStream
 import glob
 
+
+def _out_path(fp, extension):
+    """the input's name with its last extension replaced (emset001.pla.pla -> emset001.pla.xml)"""
+    return os.path.splitext(os.path.basename(fp))[0] + '.' + extension
+
+
 def serialize(fp):
     with open(fp, 'rb') as f:
-        file_name, extension = os.path.basename(fp).split('.')
+        extension = os.path.splitext(fp)[1].lstrip('.')
         data = f.read()
-        magic = data[:3].decode('utf-8')
 
-        if magic == 'SDL':
-            sdl_bytes = io.BytesIO(data)
-            sdl_struct = sdl.Sdl(KaitaiStream(sdl_bytes))
-            sdl_struct._read()
-            xml = from_sdl(sdl_struct)
+        if xmlconv.detect(data):  # SDL / PLA
+            xml = xmlconv.to_xml(data)
             ET.indent(xml, space="\t", level=0)
-            xml.write(f'{file_name}.xml')
-        if magic == 'XFS':
+            xml.write(_out_path(fp, 'xml'))
+        elif data[:3] == b'XFS':
             xfs_bytes = io.BytesIO(data)
             xfs_struct = xfs.Xfs(KaitaiStream(xfs_bytes))
             xfs_struct._read()
             xml = from_xfs(xfs_struct, extension)
             ET.indent(xml, space="\t", level=0)
-            xml.write(f'{file_name}.xml')
+            xml.write(_out_path(fp, 'xml'))
 
 def deserialize(fp, output):
     with open(fp, 'rb') as f:
-        file_name, ext = os.path.basename(fp).split('.')
         data = f.read()
         tree = ET.fromstring(data)
 
-        if output == 'sdl':
-            out_data = to_sdl(tree)
-            with open(f'{file_name}.sdl', 'wb') as wf:
+        if output in ('sdl', 'pla'):
+            out_data = xmlconv.from_xml(tree, output)
+            with open(_out_path(fp, output), 'wb') as wf:
                 wf.write(out_data)
-        
+
         if output == 'xfs':
             out_data = to_xfs(tree)
-            with open(f'{file_name}.{tree.attrib['extension']}', 'wb') as wf:
+            with open(_out_path(fp, tree.attrib['extension']), 'wb') as wf:
                 wf.write(out_data)
 
 def main():
@@ -53,7 +54,8 @@ def main():
     parser.add_argument('input', nargs='?')
     # parser.add_argument('output', nargs='?')
     #parser.add_argument('-i', '--input-type', default='sdl')
-    parser.add_argument('-o', '--output-type', default='xml')
+    parser.add_argument('-o', '--output-type', default='xml',
+                        help='xml (from .sdl, .pla or an XFS file), sdl, pla or xfs (from .xml)')
     parser.add_argument('-d', '--debug', action='store_true')
     args = parser.parse_args()
 

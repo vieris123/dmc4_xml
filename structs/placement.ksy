@@ -1,3 +1,5 @@
+# NOTE: superseded by dmc4xml/pla.py (byte-exact on every DX9 file); the tool no longer uses this struct.
+# Each value track holds one value (4 bytes, 16 for vectors) at the next 16-byte boundary; there is no frame count.
     
 meta:
   endian: le

@@ -162,6 +162,25 @@ type_to_class_name = {
     0x37: "RangeF"
 }
 
+# Property types stored as small integer records: struct format and the XML attribute of each field
+struct_types = {
+    0x10: ('<ii', ('x', 'y')),               # TYPE_POINT (MtPoint)
+    0x11: ('<ii', ('w', 'h')),               # TYPE_SIZE (MtSize)
+    0x12: ('<iiii', ('l', 't', 'r', 'b')),   # TYPE_RECT (MtRect)
+    0x38: ('<HH', ('s', 'r')),               # TYPE_RANGEU16
+}
+# TYPE_COLOR is 4 bytes (u8 r, g, b, a) in DMC4's XFS files, 16 (floats) in some other formats
+COLOR_U8 = ('<BBBB', ('r', 'g', 'b', 'a'))
+
+
+def struct_spec(prop_type, prop_bytes=None):
+    """(struct format, field names) for property types read as integer records, else None.
+    prop_bytes is None when writing from XML, where a 'struct' COLOR is always the u8 one"""
+    if prop_type == 0xF and prop_bytes in (4, None):
+        return COLOR_U8
+    return struct_types.get(prop_type)
+
+
 scalar_type_map = {
     0x3: KaitaiStream.read_u1,
     0x4: KaitaiStream.read_u1,
